@@ -1,0 +1,30 @@
+{
+    "SC": [
+        {
+            "sampling strategy": "full",
+            "dataset name": "amazon"
+        },
+        {
+            "sampling strategy": "full",
+            "dataset name": "SST-2"
+        }
+    ],
+    "TC": [
+        {
+            "sampling strategy": "full",
+            "dataset name": "agnews"
+        } 
+    ],
+    "NLI": [
+    ],
+    "QQP": [  
+    ],
+    "WiC": [ 
+    ],
+    "MultiRC": [ 
+    ],
+    "COPA": [ 
+    ],
+    "BoolQA": [
+    ]
+}
