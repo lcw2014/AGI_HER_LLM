@@ -33,6 +33,3 @@ bash scripts/benchmark.sh <tag-name>
 # for LLaMA
 bash scripts/benchmark_llm.sh <tag-name>
 ```
-
-<!-- ## Acklowlegements
-We rewrote this repository using [O-LoRA](https://github.com/cmnfriend/O-LoRA) and [MIGU](https://github.com/wenyudu/MIGU) as the default toolkits. -->
