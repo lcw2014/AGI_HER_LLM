@@ -120,6 +120,58 @@ class UIETrainer(Seq2SeqTrainer):
             print(torch.log(total_var).item())
             
         return model, torch.log(total_var)
+    
+    @torch.no_grad()
+    def arithmetic2(
+        self,
+        model,
+        bf_parameters,
+    ):              
+        total_var = 0.0
+        total_numel = 0
+        for name, param in model.named_parameters():
+            if "lora_" in name:
+                fp32_param = param.data[:]
+                fp32_prev_param = self.prev_model_state[name]
+                fp32_hidden_param = self.hidden_model_state[name]
+                
+                g_mean = 1.0 / self.c_time_step * ((fp32_param - 0.0) / self.lr)
+                g = (fp32_param - fp32_prev_param) / self.lr
+                var = (g - g_mean) ** 2
+                
+                total_var += var.sum()
+                total_numel += var.numel()
+        total_var = total_var / total_numel
+        self.c_time_step += 1
+        
+        alpha=self.args.a
+        beta=self.args.b
+        gamma=self.args.c
+        for name, param in model.named_parameters():
+            if "lora_" in name:
+                fp32_param = param.data[:]
+                fp32_hidden_param = self.hidden_model_state[name]
+                
+                fp32_hidden_param_reduced = alpha * fp32_hidden_param
+                fp32_hidden_param = beta * fp32_hidden_param_reduced +  (1.0 - beta) * fp32_param
+                
+                # calculate time step task vector
+                fp32_param = gamma * fp32_param + (1.0 - gamma) * fp32_hidden_param
+                
+                # update param 
+                param.data[:] = fp32_param
+                self.prev_model_state[name] = fp32_param
+                self.hidden_model_state[name] = fp32_hidden_param
+                
+                total_var += var.sum()
+                total_numel += var.numel()
+        total_var = total_var / total_numel
+        self.c_time_step += 1
+        
+        if str(self.model.device) == "cuda:0":
+            print(torch.log(total_var).item())
+            
+        return model, torch.log(total_var)
 
     def train(
         self,
