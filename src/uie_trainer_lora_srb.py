@@ -49,7 +49,7 @@ class DenserEvalCallback(TrainerCallback):
         if args.logging_strategy == IntervalStrategy.STEPS and state.global_step in log_eval_steps:
             control.should_log = True
 
-        # Evaluate
+        # Evaluation
         if args.evaluation_strategy == IntervalStrategy.STEPS and state.global_step in log_eval_steps:
             control.should_evaluate = True
 
