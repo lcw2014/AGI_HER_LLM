@@ -1020,24 +1020,3 @@ class UIETrainer(Seq2SeqTrainer):
                     metrics[f"{metric_key_prefix}_{key}"] = metrics.pop(key)
 
             return EvalLoopOutput(predictions=all_preds, label_ids=all_labels, metrics=metrics, num_samples=num_samples)
-
-def connect(model, predictions_ids, tokenizer, ignore_idx=-100):
-    predictions_ids = np.where(predictions_ids == ignore_idx, tokenizer.pad_token_id, predictions_ids)
-
-    predictions = tokenizer.batch_decode(
-        predictions_ids, skip_special_tokens=True, clean_up_tokenization_spaces=True
-    )
-
-    final_predictions = []
-    if check_model(model.config._name_or_path, SUPPORTED_DECODER_MODELS):
-        for pred in predictions:
-
-            if ANSWER_PREFIX in pred:
-                splits = pred.split(ANSWER_PREFIX)
-                final_predictions.append(splits[-1].strip())
-            else:
-                final_predictions.append('')
-    else:
-        final_predictions = predictions
-
-    return final_predictions
