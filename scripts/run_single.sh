@@ -64,7 +64,7 @@ for i in $(seq 0 $(($n_tasks - 1))); do
       --per_device_eval_batch_size 128 \
       --gradient_accumulation_steps 16 \
       --learning_rate $lr \
-      --num_train_epochs 1 \
+      --num_train_epochs 10 \
       --run_name $run_name \
       --max_source_length 512 \
       --max_target_length 50 \
