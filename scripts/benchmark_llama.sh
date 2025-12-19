@@ -14,9 +14,9 @@ i="none"
 # bash scripts/run_llama.sh 3 llama3 inclora 1e-4 True 0.0 ${tag};\
 
 # o-inclora
-# bash scripts/run_llama.sh 1 llama3 olora 1e-4 True 0.0 ${tag};\
-# bash scripts/run_llama.sh 2 llama3 olora 1e-4 True 0.0 ${tag};\
-# bash scripts/run_llama.sh 3 llama3 olora 1e-4 True 0.0 ${tag};\
+bash scripts/run_llama.sh 1 llama3 olora 1e-4 True 0.0 ${tag};\
+bash scripts/run_llama.sh 2 llama3 olora 1e-4 True 0.0 ${tag};\
+bash scripts/run_llama.sh 3 llama3 olora 1e-4 True 0.0 ${tag};\
 
 # task-agnostic
 
@@ -26,9 +26,9 @@ i="none"
 # bash scripts/run_llama.sh 3 llama3 lora 1e-4 False 0.0 ${tag};\
 
 # l2
-bash scripts/run_llama.sh 1 llama3 l2 1e-4 False 0.0 ${tag};\
-bash scripts/run_llama.sh 2 llama3 l2 1e-4 False 0.0 ${tag};\
-bash scripts/run_llama.sh 3 llama3 l2 1e-4 False 0.0 ${tag};\
+# bash scripts/run_llama.sh 1 llama3 l2 1e-4 False 0.0 ${tag};\
+# bash scripts/run_llama.sh 2 llama3 l2 1e-4 False 0.0 ${tag};\
+# bash scripts/run_llama.sh 3 llama3 l2 1e-4 False 0.0 ${tag};\
 
 # srb
 bash scripts/run_llama.sh 1 llama3 srb 1e-3 False ${i} ${tag}${i};\
